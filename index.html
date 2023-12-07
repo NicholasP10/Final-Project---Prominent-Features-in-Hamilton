@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title>Prominent Features in Hamilton</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/GolfCourses_1.js"></script>
+        <script src="data/ParksWithin3km_2.js"></script>
+        <script src="data/RedeemerCampus_3.js"></script>
+        <script src="data/ChristianChurchesinHamilton_4.js"></script>
+        <script src="data/BusStopsWithin3km_5.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[43.20135702152982,-79.9602631768598],[43.217964610061316,-79.93371513243544]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        function pop_GolfCourses_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_GolfCourses_1_0() {
+            return {
+                pane: 'pane_GolfCourses_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(19,230,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_GolfCourses_1');
+        map.getPane('pane_GolfCourses_1').style.zIndex = 401;
+        map.getPane('pane_GolfCourses_1').style['mix-blend-mode'] = 'normal';
+        var layer_GolfCourses_1 = new L.geoJson(json_GolfCourses_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_GolfCourses_1',
+            layerName: 'layer_GolfCourses_1',
+            pane: 'pane_GolfCourses_1',
+            onEachFeature: pop_GolfCourses_1,
+            style: style_GolfCourses_1_0,
+        });
+        bounds_group.addLayer(layer_GolfCourses_1);
+        map.addLayer(layer_GolfCourses_1);
+        function pop_ParksWithin3km_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ParksWithin3km_2_0() {
+            return {
+                pane: 'pane_ParksWithin3km_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,141,1,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ParksWithin3km_2');
+        map.getPane('pane_ParksWithin3km_2').style.zIndex = 402;
+        map.getPane('pane_ParksWithin3km_2').style['mix-blend-mode'] = 'normal';
+        var layer_ParksWithin3km_2 = new L.geoJson(json_ParksWithin3km_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ParksWithin3km_2',
+            layerName: 'layer_ParksWithin3km_2',
+            pane: 'pane_ParksWithin3km_2',
+            onEachFeature: pop_ParksWithin3km_2,
+            style: style_ParksWithin3km_2_0,
+        });
+        bounds_group.addLayer(layer_ParksWithin3km_2);
+        map.addLayer(layer_ParksWithin3km_2);
+        function pop_RedeemerCampus_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_RedeemerCampus_3_0() {
+            return {
+                pane: 'pane_RedeemerCampus_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,113,141,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_RedeemerCampus_3');
+        map.getPane('pane_RedeemerCampus_3').style.zIndex = 403;
+        map.getPane('pane_RedeemerCampus_3').style['mix-blend-mode'] = 'normal';
+        var layer_RedeemerCampus_3 = new L.geoJson(json_RedeemerCampus_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_RedeemerCampus_3',
+            layerName: 'layer_RedeemerCampus_3',
+            pane: 'pane_RedeemerCampus_3',
+            onEachFeature: pop_RedeemerCampus_3,
+            style: style_RedeemerCampus_3_0,
+        });
+        bounds_group.addLayer(layer_RedeemerCampus_3);
+        map.addLayer(layer_RedeemerCampus_3);
+        function pop_ChristianChurchesinHamilton_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Denom</th>\
+                        <td>' + (feature.properties['Denom'] !== null ? autolinker.link(feature.properties['Denom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Address'] !== null ? autolinker.link(feature.properties['Address'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Community'] !== null ? autolinker.link(feature.properties['Community'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ChristianChurchesinHamilton_4_0() {
+            return {
+                pane: 'pane_ChristianChurchesinHamilton_4',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,1,9,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ChristianChurchesinHamilton_4');
+        map.getPane('pane_ChristianChurchesinHamilton_4').style.zIndex = 404;
+        map.getPane('pane_ChristianChurchesinHamilton_4').style['mix-blend-mode'] = 'normal';
+        var layer_ChristianChurchesinHamilton_4 = new L.geoJson(json_ChristianChurchesinHamilton_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ChristianChurchesinHamilton_4',
+            layerName: 'layer_ChristianChurchesinHamilton_4',
+            pane: 'pane_ChristianChurchesinHamilton_4',
+            onEachFeature: pop_ChristianChurchesinHamilton_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_ChristianChurchesinHamilton_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ChristianChurchesinHamilton_4);
+        map.addLayer(layer_ChristianChurchesinHamilton_4);
+        function pop_BusStopsWithin3km_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Stop Num</th>\
+                        <td>' + (feature.properties['Stop Num'] !== null ? autolinker.link(feature.properties['Stop Num'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_BusStopsWithin3km_5_0() {
+            return {
+                pane: 'pane_BusStopsWithin3km_5',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(1,238,255,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BusStopsWithin3km_5');
+        map.getPane('pane_BusStopsWithin3km_5').style.zIndex = 405;
+        map.getPane('pane_BusStopsWithin3km_5').style['mix-blend-mode'] = 'normal';
+        var layer_BusStopsWithin3km_5 = new L.geoJson(json_BusStopsWithin3km_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BusStopsWithin3km_5',
+            layerName: 'layer_BusStopsWithin3km_5',
+            pane: 'pane_BusStopsWithin3km_5',
+            onEachFeature: pop_BusStopsWithin3km_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_BusStopsWithin3km_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_BusStopsWithin3km_5);
+        map.addLayer(layer_BusStopsWithin3km_5);
+            var title = new L.Control();
+            title.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+            title.update = function () {
+                this._div.innerHTML = '<h2>Prominent Features in Hamilton</h2>';
+            };
+            title.addTo(map);
+            var abstract = new L.Control({'position':'bottomright'});
+            abstract.onAdd = function (map) {
+                this._div = L.DomUtil.create('div',
+                'leaflet-control abstract');
+                this._div.id = 'abstract'
+
+                    abstract.show();
+                    return this._div;
+                };
+                abstract.show = function () {
+                    this._div.classList.remove("abstract");
+                    this._div.classList.add("abstractUncollapsed");
+                    this._div.innerHTML = '\'Golf Courses\' and \'Redeemer Campus\' layers were self created.<br />\'Bus Stops Within 3 km\', \'Parks Within 3km\' and \'Christian Churches in Hamilton\' layers were modified from open Hamilton data.<br />';
+            };
+            abstract.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/BusStopsWithin3km_5.png" /> Bus Stops Within 3km': layer_BusStopsWithin3km_5,'<img src="legend/ChristianChurchesinHamilton_4.png" /> Christian Churches in Hamilton': layer_ChristianChurchesinHamilton_4,'<img src="legend/RedeemerCampus_3.png" /> Redeemer Campus': layer_RedeemerCampus_3,'<img src="legend/ParksWithin3km_2.png" /> Parks Within 3km': layer_ParksWithin3km_2,'<img src="legend/GolfCourses_1.png" /> Golf Courses': layer_GolfCourses_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"Community": "str","Denom": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Community = document.createElement('div');
+            div_Community.id = "div_Community";
+            div_Community.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Community);
+            sel_Community = document.createElement('select');
+            sel_Community.multiple = true;
+            sel_Community.size = 6;
+            sel_Community.id = "sel_Community";
+            var Community_options_str = "<option value='' unselected></option>";
+            sel_Community.onchange = function(){filterFunc()};
+            Community_options_str  += '<option value="Ancaster">Ancaster</option>';
+            Community_options_str  += '<option value="Dundas">Dundas</option>';
+            Community_options_str  += '<option value="Flamborough">Flamborough</option>';
+            Community_options_str  += '<option value="Glanbrook">Glanbrook</option>';
+            Community_options_str  += '<option value="Hamilton">Hamilton</option>';
+            Community_options_str  += '<option value="Stoney Creek">Stoney Creek</option>';
+            sel_Community.innerHTML = Community_options_str;
+            div_Community.appendChild(sel_Community);
+            var lab_Community = document.createElement('div');
+            lab_Community.innerHTML = 'Community';
+            lab_Community.className = 'filterlabel';
+            div_Community.appendChild(lab_Community);
+            var reset_Community = document.createElement('div');
+            reset_Community.innerHTML = 'clear filter';
+            reset_Community.className = 'filterlabel';
+            reset_Community.onclick = function() {
+                var options = document.getElementById("sel_Community").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Community.appendChild(reset_Community);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Denom = document.createElement('div');
+            div_Denom.id = "div_Denom";
+            div_Denom.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Denom);
+            sel_Denom = document.createElement('select');
+            sel_Denom.multiple = true;
+            sel_Denom.size = 10;
+            sel_Denom.id = "sel_Denom";
+            var Denom_options_str = "<option value='' unselected></option>";
+            sel_Denom.onchange = function(){filterFunc()};
+            Denom_options_str  += '<option value="Alliance">Alliance</option>';
+            Denom_options_str  += '<option value="Anglican">Anglican</option>';
+            Denom_options_str  += '<option value="Apostolic">Apostolic</option>';
+            Denom_options_str  += '<option value="Associated Gospel Churches">Associated Gospel Churches</option>';
+            Denom_options_str  += '<option value="Baptist">Baptist</option>';
+            Denom_options_str  += '<option value="Brethren">Brethren</option>';
+            Denom_options_str  += '<option value="Christadelphian">Christadelphian</option>';
+            Denom_options_str  += '<option value="Christian Reformed">Christian Reformed</option>';
+            Denom_options_str  += '<option value="Church of Jesus Christ">Church of Jesus Christ</option>';
+            Denom_options_str  += '<option value="Church of the Nazarene">Church of the Nazarene</option>';
+            Denom_options_str  += '<option value="Community Church">Community Church</option>';
+            Denom_options_str  += '<option value="Free Methodist">Free Methodist</option>';
+            Denom_options_str  += '<option value="Full Gospel">Full Gospel</option>';
+            Denom_options_str  += '<option value="Greek Orthodox">Greek Orthodox</option>';
+            Denom_options_str  += '<option value="Lutheran">Lutheran</option>';
+            Denom_options_str  += '<option value="Mennonite">Mennonite</option>';
+            Denom_options_str  += '<option value="Mennonite Brethren">Mennonite Brethren</option>';
+            Denom_options_str  += '<option value="Methodist Episcopal">Methodist Episcopal</option>';
+            Denom_options_str  += '<option value="Non-denominational">Non-denominational</option>';
+            Denom_options_str  += '<option value="Orthodox">Orthodox</option>';
+            Denom_options_str  += '<option value="Other">Other</option>';
+            Denom_options_str  += '<option value="Pentecostal">Pentecostal</option>';
+            Denom_options_str  += '<option value="Pentecostal Assemblies of Canada">Pentecostal Assemblies of Canada</option>';
+            Denom_options_str  += '<option value="Presbyterian">Presbyterian</option>';
+            Denom_options_str  += '<option value="Redeemed Christian Church of God">Redeemed Christian Church of God</option>';
+            Denom_options_str  += '<option value="Reformed">Reformed</option>';
+            Denom_options_str  += '<option value="Religious Society of Friends">Religious Society of Friends</option>';
+            Denom_options_str  += '<option value="Roman Catholic">Roman Catholic</option>';
+            Denom_options_str  += '<option value="Roman Catholic Church">Roman Catholic Church</option>';
+            Denom_options_str  += '<option value="Romanian Orthodox">Romanian Orthodox</option>';
+            Denom_options_str  += '<option value="Salvation Army">Salvation Army</option>';
+            Denom_options_str  += '<option value="Seventh Day Adventist">Seventh Day Adventist</option>';
+            Denom_options_str  += '<option value="Seventh Day Adventist Reformed">Seventh Day Adventist Reformed</option>';
+            Denom_options_str  += '<option value="Slovak">Slovak</option>';
+            Denom_options_str  += '<option value="Ukrainian Orthodox">Ukrainian Orthodox</option>';
+            Denom_options_str  += '<option value="Ukranian Catholic">Ukranian Catholic</option>';
+            Denom_options_str  += '<option value="United">United</option>';
+            Denom_options_str  += '<option value="United Reformed">United Reformed</option>';
+            sel_Denom.innerHTML = Denom_options_str;
+            div_Denom.appendChild(sel_Denom);
+            var lab_Denom = document.createElement('div');
+            lab_Denom.innerHTML = 'Denom';
+            lab_Denom.className = 'filterlabel';
+            div_Denom.appendChild(lab_Denom);
+            var reset_Denom = document.createElement('div');
+            reset_Denom.innerHTML = 'clear filter';
+            reset_Denom.className = 'filterlabel';
+            reset_Denom.onclick = function() {
+                var options = document.getElementById("sel_Denom").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Denom.appendChild(reset_Denom);
+        </script>
+    </body>
+</html>
